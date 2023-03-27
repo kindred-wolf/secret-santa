@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common'
 import { SecretSantaService } from './SecretSantaService'
 import { Participant } from './Entities/Participant'
 import { Pair } from './Entities/Pair'
@@ -19,15 +19,14 @@ export class SecretSantaController {
             return await newParticipant
     }
 
-    @Get()
-    getParticipantsCount(){
-        return this.appService.getParticipantCount()
+    @Get(':id/receiver')
+    async getWishListById(@Param('id') id: number): Promise<Participant>{
+
+        return await this.appService.getWishListById(id)
     }
 
-
-    @Get(':id/receiver')
-    async getWishListById(): Promise<Participant>{
-
-        return
+    @Delete()
+    deleteAllInfo(){
+        return this.appService.deleteAllInfo()
     }
 }
